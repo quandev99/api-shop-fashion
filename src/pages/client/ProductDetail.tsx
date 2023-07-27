@@ -392,7 +392,9 @@ const ProductDetail = () => {
         <h4 className="text-xl font-bold">Sản phẩm tương tự</h4>
         <div className="grid grid-cols-5">
           <div className="col-span-5">
-            <ProductListCategory categoryId={product.categoryId} />
+            <ProductListCategory
+              categoryId={product?.categoryId || "64bbad761bf229520476dbfc"}
+            />
           </div>
         </div>
       </div>
