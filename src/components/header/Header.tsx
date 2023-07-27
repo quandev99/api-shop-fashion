@@ -1,11 +1,9 @@
 import { useContext } from "react";
-// import { getAllCategory } from "../../api/Category";
-// import { ICategory } from "../../interface/Category";
 import { Link } from "react-router-dom";
 import Search from "../search";
 import { AuthContext } from "../../provider/AuthProvider";
 const Header = () => {
-  const { state, dispatch } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
   const userStr = localStorage.getItem("users");
   const user = userStr ? JSON.parse(userStr) : null;
   console.log(state);
@@ -13,7 +11,7 @@ const Header = () => {
   const logout = () => {
     localStorage.clear();
     window.location.reload();
-  }
+  };
   return (
     <header className="header bg-[#fff] w-full shadow-lg">
       <div className="flex items-center justify-between px-5 pt-2 mb-2 page-container">
@@ -67,7 +65,6 @@ const Header = () => {
               Tin tức
             </Link>
           </li>
-
         </ul>
         <div className="flex cursor-pointer items-center gap-x-5">
           <div className="ml-2">
@@ -79,33 +76,59 @@ const Header = () => {
                 0
               </span>
             </span>
-            <span className=" hover:text-secondary transition-all">Giỏ hàng</span>
+            <span className=" hover:text-secondary transition-all">
+              Giỏ hàng
+            </span>
           </div>
           <div className="account menu-item">
-            {user ?
+            {user ? (
               <Link to="/signin">
                 <img
                   width={20}
                   className="rounded-full"
-                  src={user.user_avatar} alt="Avata" />
-              </Link> : <Link to="/signin"><i className="fa-solid fa-user"></i></Link>}
-            {user ?
+                  src={user.user_avatar}
+                  alt="Avata"
+                />
+              </Link>
+            ) : (
+              <Link to="/signin">
+                <i className="fa-solid fa-user"></i>
+              </Link>
+            )}
+            {user ? (
               <ul className="submenu">
-                <li><Link to="">Thông tin tài khoản</Link></li>
-                <li><button onClick={logout}>Đăng xuất</button></li>
-              </ul> :
-              <ul className="submenu">
-                <li><Link to="/signin">Đăng nhập</Link></li>
-                <li><Link to="/signup">Đăng ký</Link></li>
+                <li>
+                  <Link to="">Thông tin tài khoản</Link>
+                </li>
+                <li>
+                  <button onClick={logout}>Đăng xuất</button>
+                </li>
               </ul>
-            }
-            {user?.user_role === "admin" ? <ul className="submenu">
-
-              <li><Link to="">Thông tin tài khoản</Link></li>
-              <li><Link to="/admin">Trang quản trị</Link></li>
-              <li><button onClick={logout}>Đăng xuất</button></li>
-            </ul> : <div className="cart"></div>
-            }
+            ) : (
+              <ul className="submenu">
+                <li>
+                  <Link to="/signin">Đăng nhập</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Đăng ký</Link>
+                </li>
+              </ul>
+            )}
+            {user?.user_role === "admin" ? (
+              <ul className="submenu">
+                <li>
+                  <Link to="">Thông tin tài khoản</Link>
+                </li>
+                <li>
+                  <Link to="/admin">Trang quản trị</Link>
+                </li>
+                <li>
+                  <button onClick={logout}>Đăng xuất</button>
+                </li>
+              </ul>
+            ) : (
+              <div className="cart"></div>
+            )}
           </div>
         </div>
       </nav>

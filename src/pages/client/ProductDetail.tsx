@@ -1,6 +1,5 @@
 // import Swiper core and required modules
 import { useEffect, useContext, useState } from "react";
-import { v4 } from "uuid";
 import { Tabs, Input, Button, Form, Rate } from "antd";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../../provider/ProductProvider";

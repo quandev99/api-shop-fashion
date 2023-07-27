@@ -30,16 +30,17 @@ const ProductPage = () => {
   }, [dispatchCategory]);
 
   useEffect(() => {
+    setKeywords("");
     const fetchProduct = async (keywords: any, page: number) => {
       const data = await getAllProduct(keywords, page);
       try {
         const productResponse = data.data.productResponse;
         dispatch({ type: "FETCH_PRODUCT", payload: productResponse });
-        setProducts(productResponse.docs);
+        setProducts(productss);
         setCurrentPage(productResponse.page);
         setTotalPages(productResponse.totalPages);
-        setTotalItems(productResponse.totalItems);
-        setPageSize(productResponse.limit);
+        setTotalItems(totalItems);
+        setPageSize(pageSize);
       } catch (error) {
         console.log("Error GetALL Product: ", error);
       }
@@ -141,10 +142,11 @@ const ProductPage = () => {
                   {Array.from({ length: totalPages }).map((_, index) => (
                     <li
                       key={index + 1}
-                      className={`px-3 py-1 border duration-300 transition-all border-[#7A7A9D] bg-white text-[#7A7A9D] hover:bg-secondary hover:text-white ${index + 1 === currentPage
-                        ? "bg-secondary text-black"
-                        : ""
-                        }`}
+                      className={`px-3 py-1 border duration-300 transition-all border-[#7A7A9D] bg-white text-[#7A7A9D] hover:bg-secondary hover:text-white ${
+                        index + 1 === currentPage
+                          ? "bg-secondary text-black"
+                          : ""
+                      }`}
                     >
                       <button onClick={() => setCurrentPage(index + 1)}>
                         {index + 1}

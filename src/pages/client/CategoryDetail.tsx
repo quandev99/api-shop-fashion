@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllCategory, getCategoryProducts } from "../../api/Category";
 import { IProduct } from "../../interface/Product";
 import ProductItem from "../../components/product/ProductItem";
@@ -11,7 +11,6 @@ const CategoryDetailPage = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [categoryName, setCategoryName] = useState("");
 
-
   useEffect(() => {
     fetchProducts();
   }, [categoryId]);
@@ -21,8 +20,10 @@ const CategoryDetailPage = () => {
       if (categoryId) {
         const response = await getCategoryProducts(categoryId);
         setProducts(response.data.products);
-        
-        const category = categories.find((category) => category._id === categoryId);
+
+        const category = categories.find(
+          (category) => category._id === categoryId
+        );
         if (category) {
           setCategoryName(category.category_name); // Lấy tên danh mục
         }
@@ -46,20 +47,17 @@ const CategoryDetailPage = () => {
     }
   };
 
-
   return (
     <div>
- 
-        <h1 className="text-center">{categoryName}</h1>
-        
-        <div className="grid grid-cols-5 gap-4">
+      <h1 className="text-center">{categoryName}</h1>
+
+      <div className="grid grid-cols-5 gap-4">
         {products.map((product) => (
           <div key={product._id} className="bg-white rounded-lg p-4">
             <ProductItem product={product} />
           </div>
         ))}
       </div>
-      
     </div>
   );
 };

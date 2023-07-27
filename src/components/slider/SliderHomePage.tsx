@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-const SliderHomePage = (props: Props) => {
+const SliderHomePage = () => {
   return (
     <div className="page-container h-[500px] overflow-hidden select-none">
       <img

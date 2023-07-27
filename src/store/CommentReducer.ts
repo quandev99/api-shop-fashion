@@ -1,7 +1,7 @@
 export const CommentReducer = (state: any, action: any) => {
   switch (action.type) {
     case "FETCH_CommentByProduct":
-      const { id, comment } = action.payload;
+      const { comment } = action.payload;
       state.comments = comment;
       console.log("FETCH_CommentByProduct", state.comments);
       return;
