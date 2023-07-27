@@ -1,11 +1,9 @@
-
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SliderHomePage from "../../components/slider/SliderHomePage";
 import { v4 } from "uuid";
 import ProductListCategory from "../../components/product/ProductListCategory";
 const HomePage = () => {
-
   return (
     <>
       <main className="body">
@@ -29,18 +27,14 @@ const HomePage = () => {
           </Swiper>
         </section>
         <section className="px-5 mb-10 product-male page-container">
-          <ProductListCategory categoryId="64b4f22643b1f1ef6da70c03" />
-
+          <ProductListCategory categoryId="64bbad761bf229520476dbfc" />
         </section>
         <section className="px-5 mb-10 product-male page-container">
-          <ProductListCategory categoryId="64b4fa51242a568c6c4eb7bc" />
+          <ProductListCategory categoryId="64bbada61bf229520476dbff" />
         </section>
-        {/* <ProductList /> */}
       </main>
     </>
   );
 };
-
-// categoryId: truyền id của danh mục muốn hiển thị sản phẩm
 
 export default HomePage;

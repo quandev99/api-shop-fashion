@@ -8,10 +8,11 @@ import { v4 } from "uuid";
 import { Tabs, Input, Button, Form, Rate } from "antd";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../../provider/ProductProvider";
-import { getProductById } from "../../api/Product";
+import { getProductByCategoryID, getProductById } from "../../api/Product";
 import { getCommentByProduct, postComment } from "../../api/Comment";
 import { CommentContext } from "../../provider/CommentProvider";
-
+import { toast } from "react-toastify";
+import ProductListCategory from "../../components/product/ProductListCategory";
 const { TextArea } = Input;
 const { TabPane } = Tabs;
 const ProductDetail = () => {
@@ -37,7 +38,6 @@ const ProductDetail = () => {
   const product = state?.product;
   useEffect(() => {
     const fetchComments = async () => {
-      console.log("adadadasdasd", id);
       const { data } = await getCommentByProduct(id);
       const comment = data?.comment;
       dispatchComment({
@@ -47,6 +47,7 @@ const ProductDetail = () => {
     };
     fetchComments();
   }, []);
+
   const { comments } = stateComment;
   const [count, setCount] = useState(1);
   const handleIncrement = () => {
@@ -76,15 +77,31 @@ const ProductDetail = () => {
         const { data } = await postComment(commentData);
         dispatchComment({ type: "ADD_Comment", payload: data?.comment });
         form.resetFields();
+        toast.success(data.message);
       } catch (error: any) {
         form.resetFields();
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       }
     } else {
-      alert("Bạn phải đăng nhập mới được bình luận");
+      toast.warning("Bạn phải đăng nhập mới được bình luận");
     }
   };
 
+  // Sản phẩm tương tự
+  // useEffect(() => {
+  //   const productByCategory = async () => {
+  //     try {
+  //       const { data } = await getProductByCategoryID(product.categoryId);
+
+  //       const productByCategory = data.productResponse;
+  //       dispatch({ type: "PRODUCT_CATEGORY", payload: productByCategory });
+  //     } catch (error: any) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   productByCategory();
+  // }, []);
+  // console.log(state);
   return (
     <main className="product-detail">
       <div className="page-container px-5">
@@ -391,47 +408,14 @@ const ProductDetail = () => {
           </div>
         </>
       )}
-      {/* <div className="similar_product page-container px-5 my-10">
+      <div className="similar_product page-container px-5 my-10">
         <h4 className="text-xl font-bold">Sản phẩm tương tự</h4>
         <div className="grid grid-cols-5">
           <div className="col-span-5">
-            <Swiper
-              breakpoints={{
-                // when window width is >= 640px
-                350: {
-                  slidesPerView: 2,
-                  slidesPerGroup: 2,
-                },
-                768: {
-                  slidesPerView: 4,
-                  slidesPerGroup: 4,
-                },
-                // when window width is >= 768px
-                1023: {
-                  slidesPerView: 5,
-                  slidesPerGroup: 5,
-                },
-              }}
-              spaceBetween={10}
-              slidesPerGroup={5}
-              loop={true}
-              // loopfillgroupwithblank="true"
-              pagination={{
-                clickable: true,
-              }}
-              navigation={true}
-              modules={[Pagination, Navigation]}
-              className="category_list"
-            >
-              {new Array(20).fill(0).map((index) => (
-                <SwiperSlide>
-                  <ProductItem key={v4()}></ProductItem>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <ProductListCategory categoryId={product.categoryId} />
           </div>
         </div>
-      </div> */}
+      </div>
     </main>
   );
 };
