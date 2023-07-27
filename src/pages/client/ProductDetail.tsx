@@ -1,14 +1,10 @@
 // import Swiper core and required modules
-import { Navigation, Pagination } from "swiper/modules";
-import { useEffect, useContext } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import ProductItem from "../../components/product/ProductItem";
-import { useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { v4 } from "uuid";
 import { Tabs, Input, Button, Form, Rate } from "antd";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../../provider/ProductProvider";
-import { getProductByCategoryID, getProductById } from "../../api/Product";
+import { getProductById } from "../../api/Product";
 import { getCommentByProduct, postComment } from "../../api/Comment";
 import { CommentContext } from "../../provider/CommentProvider";
 import { toast } from "react-toastify";
@@ -87,21 +83,6 @@ const ProductDetail = () => {
     }
   };
 
-  // Sản phẩm tương tự
-  // useEffect(() => {
-  //   const productByCategory = async () => {
-  //     try {
-  //       const { data } = await getProductByCategoryID(product.categoryId);
-
-  //       const productByCategory = data.productResponse;
-  //       dispatch({ type: "PRODUCT_CATEGORY", payload: productByCategory });
-  //     } catch (error: any) {
-  //       console.log(error.message);
-  //     }
-  //   };
-  //   productByCategory();
-  // }, []);
-  // console.log(state);
   return (
     <main className="product-detail">
       <div className="page-container px-5">

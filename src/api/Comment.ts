@@ -1,4 +1,4 @@
-import { IComment, IPostComment } from "../interface/Comment";
+import { IPostComment } from "../interface/Comment";
 import { instance } from "./instance";
 //api
 export const getAllComments = () => {
